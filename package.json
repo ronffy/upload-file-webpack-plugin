@@ -1,0 +1,22 @@
+{
+  "name": "upload-file-webpack-plugin",
+  "version": "0.1.0",
+  "description": "A Webpack plugin to upload file to server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://172.16.117.224/fe-team/upload-file-webpack-plugin.git"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "upload",
+    "file",
+    "remote"
+  ],
+  "author": "ronffy",
+  "license": "ISC"
+}
