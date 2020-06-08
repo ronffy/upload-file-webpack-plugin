@@ -14,8 +14,8 @@ const { uploadFilesAsync, readDir } = require('./utils');
 /**
  * @param {string} url 上传文件的服务器地址
  * @param {Method} method request 请求方法
- * @param {string} filePath 要上传的文件的路径
- * @param {(string|regex)[]} fileTypes 要上传的文件的类型
+ * @param {string} filePath 要上传文件的路径
+ * @param {(string|regex)[]} fileTypes 要上传文件的类型
  * @param {function} onSuccess 上传成功后的回调
  * @param {function} onError 上传失败后的回调
  * @return
