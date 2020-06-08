@@ -21,6 +21,11 @@
     "typescript": "3.8.3",
     "webpack": "4.35.2"
   },
+  "files": [
+    "index.js",
+    "typings.d.ts"
+  ],
+  "types": "typings.d.ts",
   "author": "ronffy",
   "license": "MIT"
 }
