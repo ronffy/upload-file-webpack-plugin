@@ -1,6 +1,6 @@
 {
   "name": "upload-file-webpack-plugin",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A Webpack plugin to upload file to server.",
   "main": "index.js",
   "scripts": {
@@ -22,6 +22,7 @@
     "webpack": "4.35.2"
   },
   "files": [
+    "utils.js",
     "index.js",
     "typings.d.ts"
   ],
