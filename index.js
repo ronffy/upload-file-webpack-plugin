@@ -2,26 +2,35 @@
  * @description 上传文件到指定服务器的 webpack 插件
  * @author ronffy
  * @Date 2020-06-02 19:15:16
- * @LastEditTime 2020-06-08 10:57:41
+ * @LastEditTime 2020-06-08 11:27:05
  * @LastEditors ronffy
  */
+/** @typedef {import("./typings").Method} Method */
+/** @typedef {import("./typings").Options} UploadFileOptions */
+/** @typedef {import("webpack").Compiler} WebpackCompiler */
+
 const { uploadFilesAsync, readDir } = require('./utils');
 
 /**
  * @param {string} url 上传文件的服务器地址
- * @param {HTTPMethod} method request 请求方法
+ * @param {Method} method request 请求方法
  * @param {string} filePath 要上传的文件的路径
  * @param {(string|regex)[]} fileTypes 要上传的文件的类型
  * @param {function} onSuccess 上传成功后的回调
  * @param {function} onError 上传失败后的回调
  * @return
  */
-
 class UploadFileWebpackPlugin {
+  /**
+   * @param {UploadFileOptions} options
+   */
   constructor(options) {
     this.options = options;
   }
 
+  /**
+   * @param {WebpackCompiler} compiler
+   */
   apply(compiler) {
     const { url, method = 'PUT', filePath, fileTypes, onSuccess, onError } = this.options;
     if (!url || !filePath) {
@@ -31,8 +40,8 @@ class UploadFileWebpackPlugin {
     compiler.hooks.afterEmit.tap('upload-file-webpack-plugin', status => {
       const t = +new Date();
 
-      const files = readDir(filePath, fileTypes);
-      const asyncTasks = files.map((filePath, i) => uploadFilesAsync({
+      const filePaths = readDir(filePath, fileTypes);
+      const asyncTasks = filePaths.map((filePath, i) => uploadFilesAsync({
         url: `${url}${url.includes('?') ? '' : '?'}&fileName=${filePath.replace(filePath, '')}`,
         method,
         filePath,
@@ -42,7 +51,7 @@ class UploadFileWebpackPlugin {
         .then(() => {
           console.log('upload file success');
           console.log('time use ' + (+new Date() - t));
-          onSuccess && onSuccess(files);
+          onSuccess && onSuccess(filePaths);
         })
         .catch((e) => {
           onError && onError(e);

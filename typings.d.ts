@@ -23,7 +23,7 @@ declare namespace UploadFileWebpackPlugin {
     filePath: string
     method?: Method
     fileTypes?: (string | RegExp)[]
-    onSuccess?(string[]): void
+    onSuccess?(filePaths: string[]): void
     onError?(e: Event): void
   }
 }
