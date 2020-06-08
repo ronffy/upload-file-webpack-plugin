@@ -1,6 +1,6 @@
 {
   "name": "upload-file-webpack-plugin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Webpack plugin to upload file to server.",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,10 @@
     "file",
     "remote"
   ],
+  "devDependencies": {
+    "typescript": "3.8.3",
+    "webpack": "4.35.2"
+  },
   "author": "ronffy",
   "license": "MIT"
 }
