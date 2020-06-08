@@ -9,6 +9,6 @@ A Webpack plugin to upload file to server.
 | url | 上传文件的服务器地址 | string |
 | method | request 请求方法 | Method |
 | filePath | 要上传文件的路径 | string |
-| fileTypes | 要上传文件的类型 | (string|regex)[] |
+| fileTypes | 要上传文件的类型 | (string/regex)[] |
 | onSuccess | 上传成功后的回调 | function |
 | onError | 上传失败后的回调 | function |
