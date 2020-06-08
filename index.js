@@ -2,7 +2,7 @@
  * @description 上传文件到指定服务器的 webpack 插件
  * @author ronffy
  * @Date 2020-06-02 19:15:16
- * @LastEditTime 2020-06-04 20:22:50
+ * @LastEditTime 2020-06-08 10:57:41
  * @LastEditors ronffy
  */
 const { uploadFilesAsync, readDir } = require('./utils');
@@ -16,36 +16,39 @@ const { uploadFilesAsync, readDir } = require('./utils');
  * @param {function} onError 上传失败后的回调
  * @return
  */
-function UploadFileWebpackPlugin(options) {
-  this.options = options;
-}
 
-UploadFileWebpackPlugin.prototype.apply = function (compiler) {
-  const { url, method = 'PUT', filePath, fileTypes, onSuccess, onError } = this.options;
-  if (!url || !filePath) {
-    console.warn('UploadFileWebpackPlugin apply error, url, filePath is required');
-    return;
+class UploadFileWebpackPlugin {
+  constructor(options) {
+    this.options = options;
   }
-  compiler.hooks.afterEmit.tap('upload-file-webpack-plugin', status => {
-    const t = +new Date();
-    
-    const files = readDir(filePath, fileTypes);
-    const asyncTasks = files.map((filePath, i) => uploadFilesAsync({
-      url: `${url}${url.includes('?') ? '' : '?'}&fileName=${filePath.replace(filePath, '')}`,
-      method,
-      filePath,
-    }));
 
-    Promise.all(asyncTasks)
-      .then(() => {
-        console.log('upload file success');
-        console.log('time use ' + (+new Date() - t));
-        onSuccess && onSuccess(files);
-      })
-      .catch((e) => {
-        onError && onError(e);
-      })
-  })
+  apply(compiler) {
+    const { url, method = 'PUT', filePath, fileTypes, onSuccess, onError } = this.options;
+    if (!url || !filePath) {
+      console.warn('UploadFileWebpackPlugin apply error, url, filePath is required');
+      return;
+    }
+    compiler.hooks.afterEmit.tap('upload-file-webpack-plugin', status => {
+      const t = +new Date();
+
+      const files = readDir(filePath, fileTypes);
+      const asyncTasks = files.map((filePath, i) => uploadFilesAsync({
+        url: `${url}${url.includes('?') ? '' : '?'}&fileName=${filePath.replace(filePath, '')}`,
+        method,
+        filePath,
+      }));
+
+      Promise.all(asyncTasks)
+        .then(() => {
+          console.log('upload file success');
+          console.log('time use ' + (+new Date() - t));
+          onSuccess && onSuccess(files);
+        })
+        .catch((e) => {
+          onError && onError(e);
+        })
+    })
+  }
 }
 
 module.exports = UploadFileWebpackPlugin
