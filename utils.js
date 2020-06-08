@@ -2,7 +2,7 @@
  * @description 
  * @author ronffy
  * @Date 2020-06-02 19:17:54
- * @LastEditTime 2020-06-04 20:19:04
+ * @LastEditTime 2020-06-08 11:47:44
  * @LastEditors ronffy
  */
 const path = require('path');
@@ -24,7 +24,7 @@ const readDir = (filePath, fileTypes = defaultFileTypes) => {
   const filesContent = [];
   const filesPath = resolveApp(filePath);
 
-  const files = fs.readdirSync();
+  const files = fs.readdirSync(filesPath);
   files.forEach(f => {
     const wholeFilePath = path.resolve(filesPath, f);
     const fileStat = fs.statSync(wholeFilePath);
