@@ -2,7 +2,7 @@
  * @description 
  * @author ronffy
  * @Date 2020-06-02 19:17:54
- * @LastEditTime 2020-06-11 13:18:51
+ * @LastEditTime 2020-06-11 20:56:54
  * @LastEditors ronffy
  */
 /** @typedef {import("./typings").Options} UploadFileOptions */
@@ -27,25 +27,30 @@ const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
  */
 function readDir(filePath, fileTypes = defaultFileTypes) {
   const filesContent = [];
-  const filesPath = resolveApp(filePath);
 
-  const files = fs.readdirSync(filesPath);
-  files.forEach(f => {
-    const wholeFilePath = path.resolve(filesPath, f);
-    const fileStat = fs.statSync(wholeFilePath);
-    // 查看文件是目录还是单文件
-    if (fileStat.isDirectory()) {
-      readSingleFile(wholeFilePath);
-    }
+  const readSingleFile = p => {
+    const _filesPath = resolveApp(p);
+    const files = fs.readdirSync(_filesPath);
+    
+    files.forEach(f => {
+      const wholeFilePath = path.resolve(filePath, f);
+      const fileStat = fs.statSync(wholeFilePath);
+      // 查看文件是目录还是单文件
+      if (fileStat.isDirectory()) {
+        readSingleFile(wholeFilePath);
+      }
 
-    // 只筛选出manifest和map文件
-    if (
-      fileStat.isFile() &&
-      fileTypes.some(r => r.test(f))
-    ) {
-      filesContent.push(wholeFilePath);
-    }
-  });
+      // 只筛选出manifest和map文件
+      if (
+        fileStat.isFile() &&
+        fileTypes.some(r => r.test(f))
+      ) {
+        filesContent.push(wholeFilePath);
+      }
+    });
+  }
+
+  readSingleFile(filePath);
 
   return filesContent;
 }
