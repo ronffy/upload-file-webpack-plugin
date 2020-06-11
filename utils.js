@@ -2,9 +2,11 @@
  * @description 
  * @author ronffy
  * @Date 2020-06-02 19:17:54
- * @LastEditTime 2020-06-08 11:47:44
+ * @LastEditTime 2020-06-11 13:18:51
  * @LastEditors ronffy
  */
+/** @typedef {import("./typings").Options} UploadFileOptions */
+
 const path = require('path');
 const fs = require('fs');
 const { request } = require('http');
@@ -17,10 +19,13 @@ const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 /**
-* 递归读取文件夹
-* 输出指定文件目录集
-*/
-const readDir = (filePath, fileTypes = defaultFileTypes) => {
+ * @description 递归读取文件夹
+ * @author ronffy
+ * @param {Pick<UploadFileOptions, 'filePath'>} filePath
+ * @param {Pick<UploadFileOptions, 'fileTypes'>} fileTypes
+ * @return {Pick<UploadFileOptions, 'filePath'>} 输出指定文件目录集
+ */
+function readDir(filePath, fileTypes = defaultFileTypes) {
   const filesContent = [];
   const filesPath = resolveApp(filePath);
 
@@ -45,6 +50,13 @@ const readDir = (filePath, fileTypes = defaultFileTypes) => {
   return filesContent;
 }
 
+
+/**
+ * @description 异步上传文件
+ * @author ronffy
+ * @param {Pick<UploadFileOptions, 'url' | 'method' | 'filePath'>} options
+ * @return 
+ */
 const uploadFilesAsync = options => {
   return new Promise((resolve, reject) => {
     const { url, method, filePath } = options;
