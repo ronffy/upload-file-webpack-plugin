@@ -2,7 +2,7 @@
  * @description 
  * @author ronffy
  * @Date 2020-06-02 19:17:54
- * @LastEditTime 2020-06-11 20:56:54
+ * @LastEditTime 2020-06-11 21:02:31
  * @LastEditors ronffy
  */
 /** @typedef {import("./typings").Options} UploadFileOptions */
@@ -29,25 +29,29 @@ function readDir(filePath, fileTypes = defaultFileTypes) {
   const filesContent = [];
 
   const readSingleFile = p => {
-    const _filesPath = resolveApp(p);
-    const files = fs.readdirSync(_filesPath);
-    
-    files.forEach(f => {
-      const wholeFilePath = path.resolve(filePath, f);
-      const fileStat = fs.statSync(wholeFilePath);
-      // 查看文件是目录还是单文件
-      if (fileStat.isDirectory()) {
-        readSingleFile(wholeFilePath);
-      }
+    try {
+      const _filesPath = resolveApp(p);
+      const files = fs.readdirSync(_filesPath);
 
-      // 只筛选出manifest和map文件
-      if (
-        fileStat.isFile() &&
-        fileTypes.some(r => r.test(f))
-      ) {
-        filesContent.push(wholeFilePath);
-      }
-    });
+      files.forEach(f => {
+        const wholeFilePath = path.resolve(p, f);
+        const fileStat = fs.statSync(wholeFilePath);
+        // 查看文件是目录还是单文件
+        if (fileStat.isDirectory()) {
+          readSingleFile(wholeFilePath);
+        }
+
+        // 只筛选出manifest和map文件
+        if (
+          fileStat.isFile() &&
+          fileTypes.some(r => r.test(f))
+        ) {
+          filesContent.push(wholeFilePath);
+        }
+      });
+    } catch (error) {
+      console.log('upload-file-webpack-plugin readDir error');
+    }
   }
 
   readSingleFile(filePath);

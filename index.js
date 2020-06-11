@@ -2,7 +2,7 @@
  * @description 上传文件到指定服务器的 webpack 插件
  * @author ronffy
  * @Date 2020-06-02 19:15:16
- * @LastEditTime 2020-06-08 11:27:05
+ * @LastEditTime 2020-06-11 21:15:40
  * @LastEditors ronffy
  */
 /** @typedef {import("./typings").Method} Method */
@@ -41,10 +41,12 @@ class UploadFileWebpackPlugin {
       const t = +new Date();
 
       const filePaths = readDir(filePath, fileTypes);
-      const asyncTasks = filePaths.map((filePath, i) => uploadFilesAsync({
-        url: `${url}${url.includes('?') ? '' : '?'}&fileName=${filePath.replace(filePath, '')}`,
+      const asyncTasks = filePaths.map((path) => uploadFilesAsync({
+        url: `${url}${url.includes('?') ? '' : '?'}&fileName=${
+          path.replace(filePath + (filePath.endsWith('/') ? '' : '/'), '')
+        }`,
         method,
-        filePath,
+        filePath: path,
       }));
 
       Promise.all(asyncTasks)
