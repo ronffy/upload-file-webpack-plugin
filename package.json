@@ -1,0 +1,31 @@
+{
+  "name": "upload-file-webpack-plugin",
+  "version": "0.5.1",
+  "description": "A Webpack plugin to upload file to server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ronffy/upload-file-webpack-plugin.git"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "upload",
+    "file",
+    "remote"
+  ],
+  "devDependencies": {
+    "webpack": "4.35.2"
+  },
+  "files": [
+    "utils.js",
+    "index.js",
+    "typings.d.ts"
+  ],
+  "types": "typings.d.ts",
+  "author": "ronffy",
+  "license": "MIT"
+}
