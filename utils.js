@@ -2,7 +2,7 @@
  * @description 
  * @author ronffy
  * @Date 2020-06-02 19:17:54
- * @LastEditTime 2020-07-23 20:56:23
+ * @LastEditTime 2020-07-28 17:51:02
  * @LastEditors ronffy
  */
 /** @typedef {import("./typings").Options} UploadFileOptions */

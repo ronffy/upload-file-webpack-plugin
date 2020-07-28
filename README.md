@@ -1,5 +1,6 @@
 # upload-file-webpack-plugin
-A Webpack plugin to upload file to server.
+A Webpack plugin to upload file to server.  
+Support HTTP and HTTPS requests.
 
 ## Install
 

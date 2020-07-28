@@ -2,7 +2,7 @@
  * @description 上传文件到指定服务器的 webpack 插件
  * @author ronffy
  * @Date 2020-06-02 19:15:16
- * @LastEditTime 2020-07-16 20:37:46
+ * @LastEditTime 2020-07-28 17:50:39
  * @LastEditors ronffy
  */
 /** @typedef {import("./typings").Method} Method */
